@@ -11,7 +11,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'green-pea': {
+        'g': {
           DEFAULT: '#227739',
           50: '#E3F7E8',
           100: '#C8EFD2',
