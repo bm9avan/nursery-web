@@ -5,10 +5,11 @@ import logo from '../public/logo0.png'
 import nav from '../public/nav.jpg'
 import NavIt from './navIt'
 import { useEffect,useState } from 'react'
+import Link from 'next/link'
 
 
 const navBar = () => {
-    let pageL = ["Home", 'DaySpecial', 'Cart',"MyAccont"]
+    let pageL = ["Plants", 'Seeds', 'Cart','Contact',"MyAccont"]
   const [active, setActive] = useState(pageL[0])
   const [pop, setPop] = useState(false)
   useEffect(() => {
@@ -26,7 +27,9 @@ const navBar = () => {
   return (
     <div><nav className="bg-g-400 md:grid md:grid-cols-2 md: items-center">
     <div className="flex justify-between items-center">
+      <Link href='/'>
       <Image src={logo} alt='logo' className='w-12 rounded-md' ></Image>
+      </Link>
       <button onClick={(() => { setPop(!pop) })} className="md:hidden">
         {pop ? <Image src={popac} alt='pop image' className='w-12 p-2 hover:bg-g-50 hover:opacity-50 rounded-md '></Image> :
 
@@ -38,7 +41,7 @@ const navBar = () => {
       <div className='md:flex md:justify-between '>
       {pop&&
         pageL.map((page) => {
-          return <NavIt key={page}  active={active} page={page} setActive={setActive} />
+          return <Link href={`/${page.toLowerCase()}`}><NavIt key={page}  active={active} page={page} setActive={setActive} /></Link>
         })
       }
       </div>
