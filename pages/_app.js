@@ -11,7 +11,7 @@ export default function App({ Component, pageProps }) {
       <div className='m-5'>
       <Component {...pageProps}  />
       </div>
-      <div className='bg-g-100'>
+      <div className='bg-g-200'>
       <Foot className=' absolute  top-0 w-full mt-5' />
       </div>
     </div>
