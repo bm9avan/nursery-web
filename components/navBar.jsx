@@ -4,6 +4,7 @@ import popac from '../public/pop.png'
 import logo from '../public/logo0.png'
 import nav from '../public/nav.jpg'
 import NavIt from './navIt'
+import CartIt from './cartIt'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { FaShoppingCart, FaWindowClose } from 'react-icons/fa'
@@ -11,17 +12,19 @@ import { useRouter } from 'next/router'
 
 
 const navBar = () => {
+  /*
   //tried by chnaging file name to [navu] to use as slug in oreder to setActive(navu) to make have  
-  // const router= useRouter();
-  // var navu;
-  // let i=0;
-  // if(i==0){
-  //   navu=router.pathname.slice(1)
-  // }
-  // i++
+  const router= useRouter();
+  var navu;
+  let i=0;
+  if(i==0){
+    navu=router.pathname.slice(1)
+  }
+  i++
+  console.log(navu)
+  const [active, setActive] = useState(navu)
+  */
   let pageL = ["Plants", 'Seeds', 'Contact', "MyAccont"];
-  // console.log(navu)
-  // const [active, setActive] = useState(navu)
   const [active, setActive] = useState('')
   
   const [pop, setPop] = useState(false);
@@ -46,25 +49,25 @@ const navBar = () => {
           <Link href='/' onClick={() => { setActive("no") }}>
             <Image src={logo} alt='logo' className='w-12 rounded-2xl m-1' ></Image>
           </Link>
-          <div className='flex justify-center'>
-            <div className={`bg-g-100  absolute top-2 justify-center p-10 opacity-90 ${pop ? 'right-0' : 'right-center'} ml-3 flex-row ${cartfun ? 'block' : 'hidden'} `}>
-              <FaShoppingCart className='absolute top-1 right-center text-g-700  text-2xl right-12 hidden md:block'/>
-              <div className='text-2xl'><h1>plants</h1>
+          <div className='flex justify-center '>
+            <div className={`bg-g-100  absolute w-4/5 h-4/5 md:w-1/4 top-2 justify-center p-10 opacity-90 ${pop ? 'right-0' : 'right-center'} ml-1 flex-row ${cartfun ? 'block' : 'hidden'} rounded-2xl z-20`}>
+              <FaShoppingCart className='absolute top-1 right-1/2 text-g-700  text-2xl  hidden md:block'/>
+              <div className='text-2xl'><h1 className=' font-bold'>plants</h1>
                 <ul className='text-sm text-center'>
-                  <li>plant2</li>
-                  <li>plant1</li>
+                  <CartIt/>
+                  <CartIt/>
                 </ul>
               </div>
               <div className='text-2xl'><h1>seeds</h1>
                 <ul className='text-sm text-center'>
-                  <li>plant2</li>
-                  <li>plant1</li>
+                <CartIt/>
+                  <CartIt/>
                 </ul>
               </div>
-              <FaWindowClose onClick={(() => { setCartfun(false) })} className='cursor-pointer absolute top-2 right-2 ' />
+              <FaWindowClose onClick={(() => { setCartfun(false) })} className='cursor-pointer absolute top-4 right-4 text-xl' />
             </div>
             <div>
-              <FaShoppingCart onClick={(() => { setCartfun(true) })} className='cursor-pointer md:hidden absolute top-3 right-center text-g-700  text-2xl ' />
+              <FaShoppingCart onClick={(() => { setCartfun(true) })} className='cursor-pointer md:hidden absolute top-3 right-center text-g-700  text-2xl z-30' />
             </div>
           </div>
           <button onClick={(() => { setPop(!pop) })} className="md:hidden hover:bg-g-50 hover:opacity-50 rounded-md">
