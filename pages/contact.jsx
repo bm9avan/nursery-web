@@ -5,7 +5,7 @@ const contact = () => {
     <div>
       <section className="text-gray-600 body-font relative">
         <div className="absolute inset-0 bg-gray-300">
-          <iframe width="100%" height="100%"  title="map"  loading="lazy"  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1244.0562027102171!2d76.74887051042674!3d14.71296720880576!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bb74bf5487c5637%3A0x616955d1f1e8d3f4!2sSri%20sadhana!5e0!3m2!1sen!2sin!4v1674820623853!5m2!1sen!2sin" className='opacity-80 '></iframe>
+          <iframe width="100%" height="100%"  title="map" sandbox="allow-scripts allow-same-origin" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1244.0562027102171!2d76.74887051042674!3d14.71296720880576!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bb74bf5487c5637%3A0x616955d1f1e8d3f4!2sSri%20sadhana!5e0!3m2!1sen!2sin!4v1674820623853!5m2!1sen!2sin" className='opacity-80 '></iframe>
         </div>
         <div className="container px-5 py-24 mx-auto flex">
           <div className="lg:w-1/3 md:w-1/2 bg-white rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 relative z-10 shadow-md">

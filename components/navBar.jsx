@@ -44,7 +44,7 @@ const navBar = () => {
       <nav className="bg-g-400 md:grid md:grid-cols-2 md:items-center">
         <div className="flex justify-between items-center">
           <Link href='/' onClick={() => { setActive("no") }}>
-            <Image src={logo} alt='logo' className='w-12 rounded-md' ></Image>
+            <Image src={logo} alt='logo' className='w-12 rounded-2xl m-1' ></Image>
           </Link>
           <div className='flex justify-center'>
             <div className={`bg-g-100  absolute top-2 justify-center p-10 opacity-90 ${pop ? 'right-0' : 'right-center'} ml-3 flex-row ${cartfun ? 'block' : 'hidden'} `}>
