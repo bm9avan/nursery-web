@@ -3,7 +3,6 @@ import Image from 'next/image'
 import popac from '../public/pop.png'
 import logo from '../public/logo0.png'
 import nav from '../public/nav.jpg'
-import NavIt from './navIt'
 import CartIt from './cartIt'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
@@ -82,7 +81,9 @@ const navBar = () => {
             {pop &&
               pageL.map((page) => {
                 return <>
-                  <Link href={`/${page.toLowerCase()}`} className='' ><NavIt key={page} active={active} page={page} setActive={setActive} setPop={setPop} /></Link>
+                  <Link href={`/${page.toLowerCase()}`} className='' ><button onClick={()=>{setActive(page)}} className={`w-full p-2 hover:bg-g-50 rounded-md text-xl hover:opacity-50 text-g-900 ${active===page ?'text-red-900 font-bold':''}`}>
+      {page}  
+    </button></Link>
                 </>
               })
             }
