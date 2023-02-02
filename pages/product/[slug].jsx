@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 const slug = () => {
   /*
   //used useMemo to render pinarr only once but did not workout
+  //TypeError: Cannot read properties of null (reading 'useMemo')
   let pinraw
   const pinM= useMemo((async ()=>{
     pinraw =await fetch('http://localhost:3000/api/pinCode');
@@ -27,7 +28,7 @@ const slug = () => {
   }
   const [avilable, setAvilable] = useState()
   const delAib=async ()=>{
-    var pinraw =await fetch('http://localhost:3000/api/pinCode');
+    var pinraw =await fetch('http://192.168.0.106:3000/api/pinCode');
     var pinarr= (await pinraw.json());
     if(pinarr.includes(parseInt(pin))){
       setAvilable(true)
@@ -101,7 +102,7 @@ const slug = () => {
                 </button>
               </div>
               <div className="flex ">
-                <input id='pinCode' placeholder='enter PinCode' value={pin} onChange={onchnagePin} className="flex py-2 px-1 md:px-2 my-4 focus:outline-none bg-g-100 border-2 md:ml-20 w-44 md:w-auto border-g-600 rounded"/>
+                <input id='pinCode' placeholder='enter PinCode' value={pin} onChange={onchnagePin} className="flex py-2 px-1 md:px-2 my-4 focus:outline-none bg-g-100 border-2 md:ml-0 w-44 md:w-64 border-g-600 rounded"/>
                 <button className="flex ml-auto text-white bg-g-500 border-0 py-2 px-1 md:px-6  my-4 focus:outline-none hover:bg-g-600 rounded mr-16" onClick={delAib}>Delivery Check</button>
               </div>
               <div>
