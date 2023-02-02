@@ -5,7 +5,7 @@ const plants = () => {
   return (
     <div>
       <section className="text-gray-600 body-font">
-        <div className="container px-5 pt-24 mx-auto">
+        <div className="container px-5 pt-8 mx-auto">
           <div className="flex flex-wrap w-full ">
             <div className="lg:w-1/2 w-full mb-6 lg:mb-0">
               <h1 className="sm:text-3xl text-2xl font-medium title-font mb-2 text-g-900">Bringing Nature to Your Doorstep</h1>
@@ -20,10 +20,10 @@ const plants = () => {
           <div className="container  px-5 py-14 mx-auto">
             <div className="flex flex-wrap -m-4">
               <div className="lg:w-1/4 md:w-1/2 p-4 w-full">
-                  <Link href='/plants/val' className="block relative h-80 rounded overflow-hidden">
+                  <Link href='/product/plant' className="block relative h-80 rounded overflow-hidden">
                     <img alt="ecommerce" className="object-cover object-center w-full h-full block" src="https://dummyimage.com/420x260" />
                   </Link>
-              <Link href='/plants/val'>
+              <Link href='/product/plant'>
                   <div className="mt-4">
                     <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">CATEGORY</h3>
                     <h2 className="text-gray-900 title-font text-lg font-medium">The Catalyzer</h2>
@@ -32,10 +32,10 @@ const plants = () => {
               </Link>
               </div>
               <div className="lg:w-1/4 md:w-1/2 p-4 w-full">
-                  <Link href='/plants/val' className="block relative h-80 rounded overflow-hidden">
+                  <Link href='/product/plant' className="block relative h-80 rounded overflow-hidden">
                     <img alt="ecommerce" className="object-cover object-center w-full h-full block" src="https://dummyimage.com/421x261" />
                   </Link>
-              <Link href='/plants/val'>
+              <Link href='/product/plant'>
                   <div className="mt-4">
                     <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">CATEGORY</h3>
                     <h2 className="text-gray-900 title-font text-lg font-medium">Shooting Stars</h2>
@@ -44,10 +44,10 @@ const plants = () => {
               </Link>
               </div>
               <div className="lg:w-1/4 md:w-1/2 p-4 w-full">
-                  <Link href='/plants/val' className="block relative h-80 rounded overflow-hidden">
+                  <Link href='/product/plant' className="block relative h-80 rounded overflow-hidden">
                     <img alt="ecommerce" className="object-cover object-center w-full h-full block" src="https://dummyimage.com/422x262" />
                   </Link>
-              <Link href='/plants/val'>
+              <Link href='/product/plant'>
                   <div className="mt-4">
                     <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">CATEGORY</h3>
                     <h2 className="text-gray-900 title-font text-lg font-medium">Neptune</h2>
@@ -56,10 +56,10 @@ const plants = () => {
               </Link>
               </div>
               <div className="lg:w-1/4 md:w-1/2 p-4 w-full">
-                  <Link href='/plants/val' className="block relative h-80 rounded overflow-hidden">
+                  <Link href='/product/plant' className="block relative h-80 rounded overflow-hidden">
                     <img alt="ecommerce" className="object-cover object-center w-full h-full block" src="https://dummyimage.com/423x263" />
                   </Link>
-              <Link href='/plants/val'>
+              <Link href='/product/plant'>
                   <div className="mt-4">
                     <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">CATEGORY</h3>
                     <h2 className="text-gray-900 title-font text-lg font-medium">The 400 Blows</h2>
@@ -68,10 +68,10 @@ const plants = () => {
               </Link>
               </div>
               <div className="lg:w-1/4 md:w-1/2 p-4 w-full">
-                  <Link href='/plants/val' className="block relative h-80 rounded overflow-hidden">
+                  <Link href='/product/plant' className="block relative h-80 rounded overflow-hidden">
                     <img alt="ecommerce" className="object-cover object-center w-full h-full block" src="https://dummyimage.com/424x264" />
                   </Link>
-              <Link href='/plants/val'>
+              <Link href='/product/plant'>
                   <div className="mt-4">
                     <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">CATEGORY</h3>
                     <h2 className="text-gray-900 title-font text-lg font-medium">The Catalyzer</h2>
@@ -80,10 +80,10 @@ const plants = () => {
               </Link>
               </div>
               <div className="lg:w-1/4 md:w-1/2 p-4 w-full">
-                  <Link href='/plants/val' className="block relative h-80 rounded overflow-hidden">
+                  <Link href='/product/plant' className="block relative h-80 rounded overflow-hidden">
                     <img alt="ecommerce" className="object-cover object-center w-full h-full block" src="https://dummyimage.com/425x265" />
                   </Link>
-              <Link href='/plants/val'>
+              <Link href='/product/plant'>
                   <div className="mt-4">
                     <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">CATEGORY</h3>
                     <h2 className="text-gray-900 title-font text-lg font-medium">Shooting Stars</h2>
@@ -92,10 +92,10 @@ const plants = () => {
               </Link>
               </div>
               <div className="lg:w-1/4 md:w-1/2 p-4 w-full">
-                  <Link href='/plants/val' className="block relative h-80 rounded overflow-hidden">
+                  <Link href='/product/plant' className="block relative h-80 rounded overflow-hidden">
                     <img alt="ecommerce" className="object-cover object-center w-full h-full block" src="https://dummyimage.com/427x267" />
                   </Link>
-              <Link href='/plants/val'>
+              <Link href='/product/plant'>
                   <div className="mt-4">
                     <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">CATEGORY</h3>
                     <h2 className="text-gray-900 title-font text-lg font-medium">Neptune</h2>
@@ -104,10 +104,10 @@ const plants = () => {
               </Link>
               </div>
               <div className="lg:w-1/4 md:w-1/2 p-4 w-full">
-                  <Link href='/plants/val' className="block relative h-80 rounded overflow-hidden">
+                  <Link href='/product/plant' className="block relative h-80 rounded overflow-hidden">
                     <img alt="ecommerce" className="object-cover object-center w-full h-full block" src="https://dummyimage.com/428x268" />
                   </Link>
-              <Link href='/plants/val'>
+              <Link href='/product/plant'>
                   <div className="mt-4">
                     <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">CATEGORY</h3>
                     <h2 className="text-gray-900 title-font text-lg font-medium">The 400 Blows</h2>

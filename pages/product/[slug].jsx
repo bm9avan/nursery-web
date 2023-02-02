@@ -1,18 +1,48 @@
-import React from 'react'
+import React, { useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
+// console.log(useMemo)
 
 const slug = () => {
-    const router=useRouter();
-    const {slug}=router.query;
+  /*
+  //used useMemo to render pinarr only once but did not workout
+  let pinraw
+  const pinM= useMemo((async ()=>{
+    pinraw =await fetch('http://localhost:3000/api/pinCode');
+    var pinarr= (await pinraw.json());
+    // console.log(pinarr)
+    return pinarr
+  }),[])
+  pinM.then((data)=>{
+    var pinarr=data
+    console.log(pinarr)
+  })
+  console.log(pinarr)
+  */
+
+  const router = useRouter();
+  const { slug } = router.query
+  const [pin, setpin] = useState()
+  const onchnagePin=(e)=>{
+    setpin((e.target.value))
+  }
+  const [avilable, setAvilable] = useState()
+  const delAib=async ()=>{
+    var pinraw =await fetch('http://localhost:3000/api/pinCode');
+    var pinarr= (await pinraw.json());
+    if(pinarr.includes(parseInt(pin))){
+      setAvilable(true)
+    }else{
+      setAvilable(false)
+    }
+  }
   return (
     <div>
-      <div>
       <section className="text-gray-600 body-font overflow-hidden">
-        <div className="container  py-24 mx-auto">
+        <div className="container  py-8 mx-auto">
           <div className="lg:w-4/5 mx-auto flex flex-wrap">
             <img alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="https://dummyimage.com/400x400" />
             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-              <h2 className="text-sm title-font text-gray-500 tracking-widest">PLANT</h2>
+              <h2 className="text-sm title-font text-gray-500 tracking-widest">CATEGORY</h2>
               <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{slug}</h1>
               <div className="flex mb-4">
                 <span className="flex items-center">
@@ -70,11 +100,18 @@ const slug = () => {
                   </svg>
                 </button>
               </div>
+              <div className="flex ">
+                <input id='pinCode' placeholder='enter PinCode' value={pin} onChange={onchnagePin} className="flex py-2 px-1 md:px-2 my-4 focus:outline-none bg-g-100 border-2 md:ml-20 w-44 md:w-auto border-g-600 rounded"/>
+                <button className="flex ml-auto text-white bg-g-500 border-0 py-2 px-1 md:px-6  my-4 focus:outline-none hover:bg-g-600 rounded mr-16" onClick={delAib}>Delivery Check</button>
+              </div>
+              <div>
+                {!avilable && avilable!=null && avilable!=undefined && <span className='text-red-400 text-sm'>sorry! Delivery services are currently unavailable in your area.</span>}
+                {avilable && avilable!=null && <span className='text-g-500 text-sm'>yes, we do offer delivery to your location for this product.</span>}
+              </div>
             </div>
           </div>
         </div>
       </section>
-    </div>
     </div>
   )
 }
