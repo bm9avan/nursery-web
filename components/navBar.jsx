@@ -82,7 +82,7 @@ const navBar = () => {
             {pop &&
               pageL.map((page) => {
                 return <>
-                  <Link href={`/${page.toLowerCase()}`} className='' ><NavIt key={page} active={active} page={page} setActive={setActive} /></Link>
+                  <Link href={`/${page.toLowerCase()}`} className='' ><NavIt key={page} active={active} page={page} setActive={setActive} setPop={setPop} /></Link>
                 </>
               })
             }
