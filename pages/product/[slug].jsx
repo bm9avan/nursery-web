@@ -1,8 +1,8 @@
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
 // console.log(useMemo)
 
-const slug = () => {
+const slug = ({proDetail,addTOcart}) => {
   /*
   //used useMemo to render pinarr only once but did not workout
   //TypeError: Cannot read properties of null (reading 'useMemo')
@@ -19,14 +19,24 @@ const slug = () => {
   })
   console.log(pinarr)
   */
-
-  const router = useRouter();
-  const { slug } = router.query
-  const [pin, setpin] = useState()
-  const onchnagePin=(e)=>{
-    setpin((e.target.value))
+ 
+ const router = useRouter();
+ const { slug } = router.query
+ console.log("print route",router.query)
+ const [pin, setpin] = useState()
+ const onchnagePin=(e)=>{
+   setpin((e.target.value))
   }
-  const [avilable, setAvilable] = useState()
+  // const locObj=proDetail[slug];
+  // console.log(typeof(locObj["qty"]))
+  const [avilable, setAvilable] = useState('/')
+  const [title, setTitle] = useState('title')
+  useEffect(()=>{
+    // const val= proDetail[slug].title
+    // console.log("my sincer req",val)
+    setTitle(slug)
+  },[slug])
+  console.log("im slug",title)
   const delAib=async ()=>{
     var pinraw =await fetch('http://192.168.0.106:3000/api/pinCode');
     var pinarr= (await pinraw.json());
@@ -36,6 +46,19 @@ const slug = () => {
       setAvilable(false)
     }
   }
+
+  // var proarr
+  // const proObj=(async ()=>{
+  //   var proraw =await fetch('http://192.168.0.106:3000/api/proDetail');
+  //   return (await proraw.json());
+  // })().then((d)=>{
+  //   const { slug1 } = router.query
+  //   console.log("pleae slug",slug1)
+  //   // console.log("titke: ",d[slug1].title)
+  // })
+  // console.log("wt out ",proarr)
+  // console.log("in out print",proObj)
+
   return (
     <div>
       <section className="text-gray-600 body-font overflow-hidden">
@@ -44,7 +67,7 @@ const slug = () => {
             <img alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="https://dummyimage.com/400x400" />
             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
               <h2 className="text-sm title-font text-gray-500 tracking-widest">CATEGORY</h2>
-              <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{slug}</h1>
+              <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{title}</h1>
               <div className="flex mb-4">
                 <span className="flex items-center">
                   <svg fill="currentColor" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 text-g-500" viewBox="0 0 24 24">
@@ -102,7 +125,7 @@ const slug = () => {
                 </button>
               </div>
               <div className="flex ">
-                <input id='pinCode' placeholder='enter PinCode' value={pin} onChange={onchnagePin} className="flex py-2 px-1 md:px-2 my-4 focus:outline-none bg-g-100 border-2 md:ml-0 w-44 md:w-64 border-g-600 rounded"/>
+                <input id='pinCode' placeholder='Enter PinCode' value={pin} onChange={onchnagePin} className="flex py-2 px-1 md:px-2 my-4 focus:outline-none bg-g-100 border-2 md:ml-0 w-44 md:w-64 border-g-600 rounded"/>
                 <button className="flex ml-auto text-white bg-g-500 border-0 py-2 px-1 md:px-6  my-4 focus:outline-none hover:bg-g-600 rounded mr-16" onClick={delAib}>Delivery Check</button>
               </div>
               <div>
