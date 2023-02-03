@@ -11,6 +11,14 @@ import { useRouter } from 'next/router'
 
 
 const navBar = () => {
+
+  /*
+  const router= useRouter();
+  useEffect(() => {
+    setActive(router.pathname.slice(1))
+    console.log("hi",active,"-val")
+  }, [router.pathname.slice(1)])
+  */
   /*
   //tried by chnaging file name to [navu] to use as slug in oreder to setActive(navu) to make have  
   const router= useRouter();
@@ -25,9 +33,9 @@ const navBar = () => {
   */
   let pageL = ["Plants", 'Seeds', 'Contact', "MyAccont"];
   const [active, setActive] = useState('')
-  
+
   const [pop, setPop] = useState(false);
-  
+
   useEffect(() => {
     const handleScreenSize = () => {
       if (window.innerWidth >= 768) {
@@ -50,17 +58,17 @@ const navBar = () => {
           </Link>
           <div className='flex justify-center '>
             <div className={`bg-g-100  absolute w-4/5 h-4/5 md:w-1/4 top-2 justify-center p-10 opacity-90 ${pop ? 'right-0' : 'right-center'} ml-1 flex-row ${cartfun ? 'block' : 'hidden'} rounded-2xl z-20`}>
-              <FaShoppingCart className='absolute top-1 right-1/2 text-g-700  text-2xl  hidden md:block'/>
+              <FaShoppingCart className='absolute top-1 right-1/2 text-g-700  text-2xl  hidden md:block' />
               <div className='text-2xl'><h1 className=' font-bold'>plants</h1>
                 <ul className='text-sm text-center'>
-                  <CartIt/>
-                  <CartIt/>
+                  <CartIt />
+                  <CartIt />
                 </ul>
               </div>
               <div className='text-2xl'><h1>seeds</h1>
                 <ul className='text-sm text-center'>
-                <CartIt/>
-                  <CartIt/>
+                  <CartIt />
+                  <CartIt />
                 </ul>
               </div>
               <FaWindowClose onClick={(() => { setCartfun(false) })} className='cursor-pointer absolute top-4 right-4 text-xl' />
@@ -81,9 +89,9 @@ const navBar = () => {
             {pop &&
               pageL.map((page) => {
                 return <>
-                  <Link href={`/${page.toLowerCase()}`} className='' ><button onClick={()=>{setActive(page)}} className={`w-full p-2 hover:bg-g-50 rounded-md text-xl hover:opacity-50 text-g-900 ${active===page ?'text-red-900 font-bold':''}`}>
-      {page}  
-    </button></Link>
+                  <Link href={`/${page.toLowerCase()}`} className='' key={`/${page.toLowerCase()}`}><button onClick={() => { setActive(page) }} className={`w-full p-2 hover:bg-g-50 rounded-md text-xl hover:opacity-50 text-g-900 ${active === page ? 'text-red-900 font-bold' : ''} ${active === page ? 'text-red-900 font-bold' : ''}`}>
+                    {page}
+                  </button></Link>
                 </>
               })
             }
