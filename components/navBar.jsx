@@ -73,7 +73,7 @@ const navBar = ({ proDetail, cart, addTOcart, clearCart, removeFromCart, cartPri
                           <AiFillMinusCircle onClick={cart[c].qty > 1 ? (() => { addTOcart(c, -1) }) : (() => { addTOcart(c, 0) })} className='mx-2 mt-1 cursor-pointer' />
                           <div>{cart[c].qty}</div>
                           <AiFillPlusCircle onClick={(() => { addTOcart(c, 1) })} className='mx-2 mt-1 cursor-pointer' />
-                          <AiOutlineClose onClick={() => { removeFromCart(c); }} className='mx-2 mt-1 cursor-pointer' />
+                          <AiOutlineClose onClick={() => { removeFromCart(c); setCartfun(!cartfun) }} className='mx-2 mt-1 cursor-pointer' />
                         </div>
                       </li>
                     </div>
