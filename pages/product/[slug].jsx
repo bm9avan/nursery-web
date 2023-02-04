@@ -1,63 +1,25 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
-// console.log(useMemo)
 
-const slug = ({proDetail,addTOcart}) => {
-  /*
-  //used useMemo to render pinarr only once but did not workout
-  //TypeError: Cannot read properties of null (reading 'useMemo')
-  let pinraw
-  const pinM= useMemo((async ()=>{
-    pinraw =await fetch('http://localhost:3000/api/pinCode');
-    var pinarr= (await pinraw.json());
-    // console.log(pinarr)
-    return pinarr
-  }),[])
-  pinM.then((data)=>{
-    var pinarr=data
-    console.log(pinarr)
-  })
-  console.log(pinarr)
-  */
- 
- const router = useRouter();
- const { slug } = router.query
- console.log("print route",router.query)
- const [pin, setpin] = useState()
- const onchnagePin=(e)=>{
-   setpin((e.target.value))
+const slug = ({ proDetail, addTOcart }) => {
+const test='s2'
+  const router = useRouter();
+  const { slug } = router.query
+  const [pin, setpin] = useState()
+  const onchnagePin = (e) => {
+    setpin((e.target.value))
   }
-  // const locObj=proDetail[slug];
-  // console.log(typeof(locObj["qty"]))
+
   const [avilable, setAvilable] = useState('/')
-  const [title, setTitle] = useState('title')
-  useEffect(()=>{
-    // const val= proDetail[slug].title
-    // console.log("my sincer req",val)
-    setTitle(slug)
-  },[slug])
-  console.log("im slug",title)
-  const delAib=async ()=>{
-    var pinraw =await fetch('http://192.168.0.106:3000/api/pinCode');
-    var pinarr= (await pinraw.json());
-    if(pinarr.includes(parseInt(pin))){
+  const delAib = async () => {
+    var pinraw = await fetch('http://192.168.0.106:3000/api/pinCode');
+    var pinarr = (await pinraw.json());
+    if (pinarr.includes(parseInt(pin))) {
       setAvilable(true)
-    }else{
+    } else {
       setAvilable(false)
     }
   }
-
-  // var proarr
-  // const proObj=(async ()=>{
-  //   var proraw =await fetch('http://192.168.0.106:3000/api/proDetail');
-  //   return (await proraw.json());
-  // })().then((d)=>{
-  //   const { slug1 } = router.query
-  //   console.log("pleae slug",slug1)
-  //   // console.log("titke: ",d[slug1].title)
-  // })
-  // console.log("wt out ",proarr)
-  // console.log("in out print",proObj)
 
   return (
     <div>
@@ -66,8 +28,12 @@ const slug = ({proDetail,addTOcart}) => {
           <div className="lg:w-4/5 mx-auto flex flex-wrap">
             <img alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="https://dummyimage.com/400x400" />
             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-              <h2 className="text-sm title-font text-gray-500 tracking-widest">CATEGORY</h2>
-              <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{title}</h1>
+              <h2 className="text-sm title-font text-gray-500 tracking-widest">
+              {slug===undefined? "...":(proDetail[slug].catagy)}
+              </h2>
+              <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
+                {slug===undefined? "loading...":(proDetail[slug].title)}
+              </h1>
               <div className="flex mb-4">
                 <span className="flex items-center">
                   <svg fill="currentColor" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 text-g-500" viewBox="0 0 24 24">
@@ -115,8 +81,8 @@ const slug = ({proDetail,addTOcart}) => {
                 </div>
               </div>
               <div className="flex">
-                <span className="title-font font-medium text-2xl text-gray-900">₹58.00</span>
-                <button className="flex ml-auto text-white bg-g-500 border-0 py-2 md:px px-2 m-1 focus:outline-none hover:bg-g-600 rounded">Add to Cart</button>
+                <span className="title-font font-medium text-2xl text-gray-900">₹{slug===undefined? "...":(proDetail[slug].price)}</span>
+                <button className="flex ml-auto text-white bg-g-500 border-0 py-2 md:px px-2 m-1 focus:outline-none hover:bg-g-600 rounded" onClick={slug===undefined?()=>{}:(()=>{addTOcart(slug,1)})}>Add to Cart</button>
                 <button className="flex ml-auto text-white bg-g-500 border-0 py-2 px-6 m-1 focus:outline-none hover:bg-g-600 rounded">Buy now</button>
                 <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                   <svg fill="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-5 h-5" viewBox="0 0 24 24">
@@ -125,12 +91,12 @@ const slug = ({proDetail,addTOcart}) => {
                 </button>
               </div>
               <div className="flex ">
-                <input id='pinCode' placeholder='Enter PinCode' value={pin} onChange={onchnagePin} className="flex py-2 px-1 md:px-2 my-4 focus:outline-none bg-g-100 border-2 md:ml-0 w-44 md:w-64 border-g-600 rounded"/>
+                <input id='pinCode' placeholder='Enter PinCode' value={pin} onChange={onchnagePin} className="flex py-2 px-1 md:px-2 my-4 focus:outline-none bg-g-100 border-2 md:ml-0 w-44 md:w-64 border-g-600 rounded" />
                 <button className="flex ml-auto text-white bg-g-500 border-0 py-2 px-1 md:px-6  my-4 focus:outline-none hover:bg-g-600 rounded mr-16" onClick={delAib}>Delivery Check</button>
               </div>
               <div>
-                {!avilable && avilable!=null && avilable!=undefined && <span className='text-red-400 text-sm'>sorry! Delivery services are currently unavailable in your area.</span>}
-                {avilable && avilable!=null && <span className='text-g-500 text-sm'>yes, we do offer delivery to your location for this product.</span>}
+                {!avilable && avilable != null && avilable != undefined && <span className='text-red-400 text-sm'>sorry! Delivery services are currently unavailable in your area.</span>}
+                {avilable !='/' && avilable && avilable != null && <span className='text-g-500 text-sm'>yes, we do offer delivery to your location for this product.</span>}
               </div>
             </div>
           </div>
