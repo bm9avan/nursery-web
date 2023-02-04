@@ -2,10 +2,13 @@ import React, { useState } from 'react'
 
 function address() {
     const [pin, setpin] = useState()
+    const [avilable, setAvilable] = useState('/')
+
     const onchnagePin = (e) => {
         setpin((e.target.value))
     }
-    const [avilable, setAvilable] = useState('/')
+
+
     const delAib = async () => {
         var pinraw = await fetch('http://192.168.0.106:3000/api/pinCode');
         var pinarr = (await pinraw.json());
@@ -24,11 +27,11 @@ function address() {
                 </div>
                 {<button className="flex ml-auto text-white bg-g-500 border-0 py-2 px-4 m-auto focus:outline-none hover:bg-g-600 rounded" onClick={delAib}>Delivery Check</button>}
                 <div className='m-auto'>
-                {!avilable && avilable != null && avilable != undefined && <span className='text-red-400 text-sm'>sorry! Delivery services are currently unavailable in your area.</span>}
-                {avilable !='/' && avilable && avilable != null && <span className='text-g-500 text-sm'>yes, we do offer delivery to your location for this product.</span>}
-              </div>
+                    {!avilable && avilable != null && avilable != undefined && <span className='text-red-400 text-sm'>sorry! Delivery services are currently unavailable in your area.</span>}
+                    {avilable != '/' && avilable && avilable != null && <span className='text-g-500 text-sm'>yes, we do offer delivery to your location for this product.</span>}
+                </div>
             </div>
-               {avilable !='/' && avilable && avilable != null &&
+            {avilable != '/' && avilable && avilable != null &&
 
                 <div className="lg:w-1/3 md:w-1/2 bg-white flex flex-col m-auto w-full md:py-8 mt-8 md:mt-0">
                     <h2 className="text-gray-900 text-lg mb-1 font-medium title-font">Enter Address</h2>
@@ -60,7 +63,7 @@ function address() {
 
                     <button className="text-white bg-g-600 border-0 py-2 px-6 focus:outline-none hover:bg-g-700 rounded text-lg">Add Address</button>
                 </div>
-               } 
+            }
 
         </div >
     )

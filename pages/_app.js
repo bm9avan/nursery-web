@@ -33,15 +33,8 @@ export default function App({ Component, pageProps }) {
   }
 
   let cartObj
-  //   useEffect(()=>{
-  // console.log("dis",cartObj)
-  // },[])
   const [cart, setCart] = useState({})
-  // useEffect(() => {
-  // clearCart()
-  // cartObj = JSON.parse(localStorage.getItem("data"))
-  // saveCart()
-  // }, [cart])
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       try {
@@ -57,6 +50,7 @@ export default function App({ Component, pageProps }) {
       }
     }
   }, [])
+
   const [cartPrice, setCartPrice] = useState(0)
 
   function saveCart(cartup) {
@@ -71,13 +65,10 @@ export default function App({ Component, pageProps }) {
   function addTOcart(proId, qty) {
     let newCart = cart
     if (newCart[proId] != undefined) {
-      console.log("if part ", newCart[proId].qty)
       let oldQty = newCart[proId].qty
       newCart[proId].qty = oldQty + qty
     } else {
-      console.log("else part",)
       newCart[proId] = { 'qty': qty }
-      console.log(newCart[proId].qty)
     }
     setCart(newCart);
     saveCart(newCart);
@@ -91,12 +82,9 @@ export default function App({ Component, pageProps }) {
 
   function removeFromCart(proId) {
     let newCart = cart
-    console.log("befire", newCart)
-    // newCart = newCart.omit(newCart,'Cow');
     delete newCart[proId]
     setCart(newCart)
     saveCart(newCart)
-    console.log("after", newCart)
   }
 
   return <>

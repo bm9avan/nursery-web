@@ -1,9 +1,9 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link';
 
 const slug = ({ proDetail, addTOcart }) => {
-const test='s2'
+  const test = 's2'
   const router = useRouter();
   const { slug } = router.query
   const [pin, setpin] = useState()
@@ -30,10 +30,10 @@ const test='s2'
             <img alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="https://dummyimage.com/400x400" />
             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
               <h2 className="text-sm title-font text-gray-500 tracking-widest">
-              {slug===undefined? "...":(proDetail[slug].catagy)}
+                {slug === undefined ? "..." : (proDetail[slug].catagy)}
               </h2>
               <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-                {slug===undefined? "loading...":(proDetail[slug].title)}
+                {slug === undefined ? "loading..." : (proDetail[slug].title)}
               </h1>
               <div className="flex mb-4">
                 <span className="flex items-center">
@@ -82,10 +82,10 @@ const test='s2'
                 </div>
               </div>
               <div className="flex">
-                <span className="title-font font-medium text-2xl text-gray-900">₹{slug===undefined? "...":(proDetail[slug].price)}</span>
-                <button className="flex ml-auto text-white bg-g-500 border-0 py-2 md:px px-2 m-1 focus:outline-none hover:bg-g-600 rounded" onClick={slug===undefined?()=>{}:(()=>{addTOcart(slug,1)})}>Add to Cart</button>
+                <span className="title-font font-medium text-2xl text-gray-900">₹{slug === undefined ? "..." : (proDetail[slug].price)}</span>
+                <button className="flex ml-auto text-white bg-g-500 border-0 py-2 md:px px-2 m-1 focus:outline-none hover:bg-g-600 rounded" onClick={slug === undefined ? () => { } : (() => { addTOcart(slug, 1) })}>Add to Cart</button>
                 <Link href="/buyNow" className='flex ml-auto'>
-                <button className="text-white bg-g-500 border-0 py-2 px-6 m-1 focus:outline-none hover:bg-g-600 rounded" onClick={slug===undefined?()=>{}:(()=>{addTOcart(slug,1)})}>Buy now</button>
+                  <button className="text-white bg-g-500 border-0 py-2 px-6 m-1 focus:outline-none hover:bg-g-600 rounded" onClick={slug === undefined ? () => { } : (() => { addTOcart(slug, 1) })}>Buy now</button>
                 </Link>
                 <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                   <svg fill="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-5 h-5" viewBox="0 0 24 24">
@@ -99,7 +99,7 @@ const test='s2'
               </div>
               <div>
                 {!avilable && avilable != null && avilable != undefined && <span className='text-red-400 text-sm'>sorry! Delivery services are currently unavailable in your area.</span>}
-                {avilable !='/' && avilable && avilable != null && <span className='text-g-500 text-sm'>yes, we do offer delivery to your location for this product.</span>}
+                {avilable != '/' && avilable && avilable != null && <span className='text-g-500 text-sm'>yes, we do offer delivery to your location for this product.</span>}
               </div>
             </div>
           </div>

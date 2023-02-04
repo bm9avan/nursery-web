@@ -1,9 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 
-const plants = ({proDetail}) => {
-  let arr = [1,2,3,4,5,6,7,8]
-  let i=0;
+const plants = ({ proDetail }) => {
   return (
     <div>
       <section className="text-gray-600 body-font">
@@ -22,7 +20,7 @@ const plants = ({proDetail}) => {
           <div className="container  px-5 py-14 mx-auto">
             <div className="flex flex-wrap -m-4">
               {(Object.keys(proDetail)).slice(12).map((k) => {
-                 
+
                 return <div className="lg:w-1/4 md:w-1/2 p-4 w-full" key={k}>
                   <Link href={`/product/${k}`} className="block relative h-80 rounded overflow-hidden">
                     <img alt="ecommerce" className="object-cover object-center w-full h-full block" src="https://dummyimage.com/420x260" />
