@@ -45,7 +45,6 @@ export default function App({ Component, pageProps }) {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       try {
-
         cartObj = JSON.parse(localStorage.getItem("data"))
         console.log("new dis", cartObj)
         if (cartObj == null) {

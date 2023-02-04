@@ -84,8 +84,10 @@ const navBar = ({ proDetail, cart, addTOcart, clearCart, removeFromCart, cartPri
                   Total:{cartPrice}
                 </div>} */}
                 {Object.keys(cart) != 0 && <div className='text-xl flex flex-row justify-between m-7'>
-                  <button className='group relative flex justify-center rounded-md border border-transparent bg-g-600 py-2 px-4 text-sm font-medium text-white hover:bg-g-700 focus:outline-none focus:ring-2 focus:ring-g-500 focus:ring-offset-2' onClick={clearCart}>Clear Cart</button>
-                  <button className='group relative flex justify-center rounded-md border border-transparent bg-g-600 py-2 px-4 text-sm font-medium text-white hover:bg-g-700 focus:outline-none focus:ring-2 focus:ring-g-500 focus:ring-offset-2' >Buy now</button>
+                  <button className='group relative flex justify-center rounded-md border border-transparent bg-g-600 py-2 px-4 text-sm font-medium text-white hover:bg-g-700 focus:outline-none focus:ring-2 focus:ring-g-500 focus:ring-offset-2' onClick={()=>{clearCart();setCartfun(!cartfun)}}>Clear Cart</button>
+                  <Link href="/buyNow">
+                  <button className='group relative flex justify-center rounded-md border border-transparent bg-g-600 py-2 px-4 text-sm font-medium text-white hover:bg-g-700 focus:outline-none focus:ring-2 focus:ring-g-500 focus:ring-offset-2' onClick={()=>setCartfun(!cartfun)} >Buy now</button>
+                  </Link>
                 </div>}
                 {console.log("length", Object.keys(cart).length)}
                 {Object.keys(cart).length === 0 && <div className='flex justify-center mt-3 text-xl'>
