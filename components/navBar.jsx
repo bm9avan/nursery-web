@@ -13,7 +13,7 @@ const navBar = ({ proDetail, cart, addTOcart, clearCart, removeFromCart, cartPri
   useEffect(() => {
     // This will be called when either prop1 or prop2 changes
   }, [cart, cartPrice])
-  console.log("navBar cart", cart)
+  // console.log("navBar cart", cart)
   /*
   const router= useRouter();
   useEffect(() => {
@@ -89,7 +89,7 @@ const navBar = ({ proDetail, cart, addTOcart, clearCart, removeFromCart, cartPri
                   <button className='group relative flex justify-center rounded-md border border-transparent bg-g-600 py-2 px-4 text-sm font-medium text-white hover:bg-g-700 focus:outline-none focus:ring-2 focus:ring-g-500 focus:ring-offset-2' onClick={()=>setCartfun(!cartfun)} >Buy now</button>
                   </Link>
                 </div>}
-                {console.log("length", Object.keys(cart).length)}
+                {/* {console.log("length", Object.keys(cart).length)} */}
                 {Object.keys(cart).length === 0 && <div className='flex justify-center mt-3 text-xl'>
                   {'Your cart is empty :('}
                 </div>}
