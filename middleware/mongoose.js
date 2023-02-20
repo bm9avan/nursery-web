@@ -6,7 +6,8 @@ const conectDb = handler => async (req,res)=>{
         return handler(req,res)
     }
     // await mongoose.connect("mongodb://127.0.0.1:27017/?directConnection=true&tls=false&readPreference=primary")
-    await mongoose.connect(process.env.MONGO_URL)
+    // console.log(process.env.MONGO_URL,typeof(process.env.MONGO_URL))
+    mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true })
     // await mongoose.connect('mongodb://127.0.0.1:27017/test')
     return handler(req,res)
 }

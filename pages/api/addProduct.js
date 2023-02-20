@@ -23,7 +23,7 @@ async function handler(req, res) {
         console.log("step4: incomplete")
         console.log(product)
         console.log(p)
-        await p.save();
+        p.save();
         console.log("step5: complete")
       }
       res.status(200).json({ sucess: "data added" })

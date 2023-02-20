@@ -13,7 +13,7 @@ const ProductSchema = new mongoose.Schema({
 
 mongoose.models={}
 
-const ProductModel = mongoose.model('Product',ProductSchema);
-module.exports = ProductModel;
+// const ProductModel = mongoose.model('Product',ProductSchema);
+// module.exports = ProductModel;
 
-// export default mongoose.model("Product",ProductSchema);
+export default mongoose.model("Product",ProductSchema);
