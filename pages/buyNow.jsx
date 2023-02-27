@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+import React, { useEffect } from 'react'
 import Link from 'next/link'
 import { AiFillPlusCircle, AiFillMinusCircle } from 'react-icons/ai'
 import Product from "@/models/Product"
@@ -8,8 +8,7 @@ const buyNow = ({ product, cart, addTOcart }) => {
   useEffect(() => {
 
   }, [cart])
-  
-  console.log("in cart ", product)
+
   let proDetail = product
   let x = 0
 
@@ -19,12 +18,8 @@ const buyNow = ({ product, cart, addTOcart }) => {
       <div className="h-1 w-20 bg-indigo-500 rounded mb-4"></div>
       <ol className='text-xl list-decimal'>
         {Object.keys(cart).map((c) => {
-          console.log(c)
           let pos = proDetail.findIndex(item => item.slug === c);
-          console.log("pos", pos)
-          // t = cartup[Id].qty * proDetail[pos].amount
           x += proDetail[pos].amount * cart[c].qty
-          console.log(x)
           return <div key={c}>
             <li className='m-2 justify-center'>
               <Link href={`/product/${c}`} className="hover:bg-g-200">

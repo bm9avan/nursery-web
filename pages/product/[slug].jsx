@@ -4,18 +4,14 @@ import { useRouter } from 'next/router';
 import Product from "@/models/Product"
 import mongoose from "mongoose";
 
-const slug = ({ product,path, addTOcart }) => {
-  // console.log(path.split("/")[2])
-  console.log("in pro",product ,"and ", path.slice(-2))
+const slug = ({ product, addTOcart }) => {
   const [pro,setPro]=useState(product)
   useEffect(() => {
-    console.log("loading")
     setPro(product)
   }, [product[0]])
   
   const router = useRouter()
   const { slug } = router.query
-  console.log("router.query",slug)
   const [pin, setpin] = useState()
   const onchnagePin = (e) => {
     setpin((e.target.value))
@@ -129,7 +125,7 @@ export async function getServerSideProps(context) {
   let productArr = await Product.find({slug: setPath})
   const product=JSON.parse(JSON.stringify(productArr))
   return {
-    props: {product,path}, 
+    props: {product}
   }
 }
 

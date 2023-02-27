@@ -5,43 +5,22 @@ import logo from '../public/logo0.png'
 import nav from '../public/nav.jpg'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { FaShoppingCart, FaSketch, FaWindowClose } from 'react-icons/fa'
+import { FaShoppingCart, FaWindowClose } from 'react-icons/fa'
 import { AiFillPlusCircle, AiFillMinusCircle, AiOutlineClose } from 'react-icons/ai'
-import Product from "@/models/Product"
-import mongoose from "mongoose";
 
-const navBar = ({ cart, addTOcart, clearCart, removeFromCart, cartPrice }) => {
+const navBar = ({ cart, addTOcart, clearCart, removeFromCart }) => {
   useEffect(() => {
     // This will be called when either prop1 or prop2 changes
-  }, [cart, cartPrice])
-  // console.log("navBar cart", cart)
+  }, [cart])
   const [data, setData] = useState(null);
 
   useEffect(() => {
     fetch('http://192.168.0.107:3000/api/getProduct')
       .then(response => response.json())
-      .then(data => { console.log("nav bar data", data); setData(data) })
+      .then(data => { setData(data) })
       .catch(error => console.error(error));
   }, []);
-  /*
-  const router= useRouter();
-  useEffect(() => {
-    setActive(router.pathname.slice(1))
-    console.log("hi",active,"-val")
-  }, [router.pathname.slice(1)])
-  */
-  /*
-  //tried by chnaging file name to [navu] to use as slug in oreder to setActive(navu) to make have  
-  const router= useRouter();
-  var navu;
-  let i=0;
-  if(i==0){
-    navu=router.pathname.slice(1)
-  }
-  i++
-  console.log(navu)
-  const [active, setActive] = useState(navu)
-  */
+
   let pageL = ["Plants", 'Seeds', 'Contact', "MyAccont"];
   const [active, setActive] = useState('')
   const [pop, setPop] = useState(false);
@@ -73,14 +52,11 @@ const navBar = ({ cart, addTOcart, clearCart, removeFromCart, cartPrice }) => {
                 {/* <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi aliquam aliquid ipsa itaque alias labore fugit, in, optio at ipsum architecto quae cupiditate rem, animi quo esse! Aspernatur illum pariatur cupiditate laborum iusto? Nobis, hic in! Quae odio quia ab tempore! In nisi a, quasi error excepturi vel fuga laborum rem, ipsam, explicabo ad qui maxime recusandae. Praesentium quibusdam non, modi tempore eius, perferendis voluptates tempora consequuntur, est dignissimos ipsam atque soluta laudantium neque fugit! Aliquid, qui in error doloremque sunt iusto excepturi eveniet a dolore maxime eos eaque atque, tempore asperiores ipsam, mollitia ratione doloribus distinctio aut recusandae.</div> */}
                 <ul className='text-sm text-center'>
                   {Object.keys(cart).map((c) => {
-                    console.log(c)
-
                     if (!data) {
                       return <div>Loading...</div>;
                     }
 
                     let pos = data["productArr"].findIndex(item => item.slug === c);
-                    console.log("pos in nav", pos)
 
                     return <div key={c}>
                       <li className='flex  m-2'>
@@ -98,16 +74,12 @@ const navBar = ({ cart, addTOcart, clearCart, removeFromCart, cartPrice }) => {
                   })
                   }
                 </ul>
-                {/* {Object.keys(cart) != 0 && <div className='text-center'>
-                  Total:{cartPrice}
-                </div>} */}
                 {Object.keys(cart) != 0 && <div className='text-xl flex flex-row justify-between m-7'>
                   <button className='group relative flex justify-center rounded-md border border-transparent bg-g-600 py-2 px-4 text-sm font-medium text-white hover:bg-g-700 focus:outline-none focus:ring-2 focus:ring-g-500 focus:ring-offset-2' onClick={() => { clearCart(); setCartfun(!cartfun) }}>Clear Cart</button>
                   <Link href="/buyNow">
                     <button className='group relative flex justify-center rounded-md border border-transparent bg-g-600 py-2 px-4 text-sm font-medium text-white hover:bg-g-700 focus:outline-none focus:ring-2 focus:ring-g-500 focus:ring-offset-2' onClick={() => setCartfun(!cartfun)} >Buy now</button>
                   </Link>
                 </div>}
-                {/* {console.log("length", Object.keys(cart).length)} */}
                 {Object.keys(cart).length === 0 && <div className='flex justify-center mt-3 text-xl'>
                   {'Your cart is empty :('}
                 </div>}
@@ -149,20 +121,5 @@ const navBar = ({ cart, addTOcart, clearCart, removeFromCart, cartPrice }) => {
     </div>
   )
 }
-
-/*
-export async function getServerSideProps(context) {
-  // if(!mongoose.connections[0].readyState){
-  //   mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true })
-  // }
-  // let productArr = await Product.find()
-  // const product=JSON.parse(JSON.stringify(productArr))
-  let productArr = await fetch("http://192.168.0.107:3000/api/hello")
-  const product=productArr.json()
-  return {
-    props: {product}, 
-  }
-}
-*/
 
 export default navBar

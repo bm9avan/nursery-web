@@ -18,7 +18,6 @@ async function handler(req, res) {
         }},{upsert: true})
         console.log(p)
         console.log("after not saved")
-      // let p = await Product.updateOne({ "img": "changed" }, { $set: { img: "test", desc: "same", categoty: "changed" } }, { upsert: true })
       console.log("after saved")
     }
       res.status(200).json({ sucess: "data added" })

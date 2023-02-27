@@ -4,7 +4,6 @@ import Product from "@/models/Product"
 import mongoose from "mongoose";
 
 const plants = ({  product }) => {
-  console.log(product)
   return (
     <div>
       <section className="text-gray-600 body-font">
