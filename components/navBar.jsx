@@ -5,15 +5,24 @@ import logo from '../public/logo0.png'
 import nav from '../public/nav.jpg'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { FaShoppingCart, FaWindowClose } from 'react-icons/fa'
+import { FaShoppingCart, FaSketch, FaWindowClose } from 'react-icons/fa'
 import { AiFillPlusCircle, AiFillMinusCircle, AiOutlineClose } from 'react-icons/ai'
-import { useRouter } from 'next/router'
+import Product from "@/models/Product"
+import mongoose from "mongoose";
 
-const navBar = ({ proDetail, cart, addTOcart, clearCart, removeFromCart, cartPrice }) => {
+const navBar = ({ cart, addTOcart, clearCart, removeFromCart, cartPrice }) => {
   useEffect(() => {
     // This will be called when either prop1 or prop2 changes
   }, [cart, cartPrice])
   // console.log("navBar cart", cart)
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    fetch('http://192.168.0.107:3000/api/getProduct')
+      .then(response => response.json())
+      .then(data => { console.log("nav bar data", data); setData(data) })
+      .catch(error => console.error(error));
+  }, []);
   /*
   const router= useRouter();
   useEffect(() => {
@@ -61,13 +70,22 @@ const navBar = ({ proDetail, cart, addTOcart, clearCart, removeFromCart, cartPri
             <div className={`bg-g-100  absolute w-4/5  md:w-1/4 top-2 justify-center p-10 opacity-90 ${pop ? 'right-0' : 'right-center'} ml-1 flex-row ${cartfun ? 'block' : 'hidden'} rounded-2xl z-30 `}>
               <FaShoppingCart className='absolute top-1 right-1/2 text-g-700  text-2xl  hidden md:block' />
               <div className='text-2xl'><h1 className=' font-bold text-center'>plants&seeds</h1>
-              {/* <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi aliquam aliquid ipsa itaque alias labore fugit, in, optio at ipsum architecto quae cupiditate rem, animi quo esse! Aspernatur illum pariatur cupiditate laborum iusto? Nobis, hic in! Quae odio quia ab tempore! In nisi a, quasi error excepturi vel fuga laborum rem, ipsam, explicabo ad qui maxime recusandae. Praesentium quibusdam non, modi tempore eius, perferendis voluptates tempora consequuntur, est dignissimos ipsam atque soluta laudantium neque fugit! Aliquid, qui in error doloremque sunt iusto excepturi eveniet a dolore maxime eos eaque atque, tempore asperiores ipsam, mollitia ratione doloribus distinctio aut recusandae.</div> */}
+                {/* <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi aliquam aliquid ipsa itaque alias labore fugit, in, optio at ipsum architecto quae cupiditate rem, animi quo esse! Aspernatur illum pariatur cupiditate laborum iusto? Nobis, hic in! Quae odio quia ab tempore! In nisi a, quasi error excepturi vel fuga laborum rem, ipsam, explicabo ad qui maxime recusandae. Praesentium quibusdam non, modi tempore eius, perferendis voluptates tempora consequuntur, est dignissimos ipsam atque soluta laudantium neque fugit! Aliquid, qui in error doloremque sunt iusto excepturi eveniet a dolore maxime eos eaque atque, tempore asperiores ipsam, mollitia ratione doloribus distinctio aut recusandae.</div> */}
                 <ul className='text-sm text-center'>
                   {Object.keys(cart).map((c) => {
+                    console.log(c)
+
+                    if (!data) {
+                      return <div>Loading...</div>;
+                    }
+
+                    let pos = data["productArr"].findIndex(item => item.slug === c);
+                    console.log("pos in nav", pos)
+
                     return <div key={c}>
-                      <li className='flex  m-2 '>
+                      <li className='flex  m-2'>
                         <div className='float-left w-full'>
-                          {proDetail[c].title}
+                          {data["productArr"][pos].title}
                         </div>
                         <div className='float-right flex'>
                           <AiFillMinusCircle onClick={cart[c].qty > 1 ? (() => { addTOcart(c, -1) }) : (() => { addTOcart(c, 0) })} className='mx-2 mt-1 cursor-pointer' />
@@ -84,9 +102,9 @@ const navBar = ({ proDetail, cart, addTOcart, clearCart, removeFromCart, cartPri
                   Total:{cartPrice}
                 </div>} */}
                 {Object.keys(cart) != 0 && <div className='text-xl flex flex-row justify-between m-7'>
-                  <button className='group relative flex justify-center rounded-md border border-transparent bg-g-600 py-2 px-4 text-sm font-medium text-white hover:bg-g-700 focus:outline-none focus:ring-2 focus:ring-g-500 focus:ring-offset-2' onClick={()=>{clearCart();setCartfun(!cartfun)}}>Clear Cart</button>
+                  <button className='group relative flex justify-center rounded-md border border-transparent bg-g-600 py-2 px-4 text-sm font-medium text-white hover:bg-g-700 focus:outline-none focus:ring-2 focus:ring-g-500 focus:ring-offset-2' onClick={() => { clearCart(); setCartfun(!cartfun) }}>Clear Cart</button>
                   <Link href="/buyNow">
-                  <button className='group relative flex justify-center rounded-md border border-transparent bg-g-600 py-2 px-4 text-sm font-medium text-white hover:bg-g-700 focus:outline-none focus:ring-2 focus:ring-g-500 focus:ring-offset-2' onClick={()=>setCartfun(!cartfun)} >Buy now</button>
+                    <button className='group relative flex justify-center rounded-md border border-transparent bg-g-600 py-2 px-4 text-sm font-medium text-white hover:bg-g-700 focus:outline-none focus:ring-2 focus:ring-g-500 focus:ring-offset-2' onClick={() => setCartfun(!cartfun)} >Buy now</button>
                   </Link>
                 </div>}
                 {/* {console.log("length", Object.keys(cart).length)} */}
@@ -131,5 +149,20 @@ const navBar = ({ proDetail, cart, addTOcart, clearCart, removeFromCart, cartPri
     </div>
   )
 }
+
+/*
+export async function getServerSideProps(context) {
+  // if(!mongoose.connections[0].readyState){
+  //   mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true })
+  // }
+  // let productArr = await Product.find()
+  // const product=JSON.parse(JSON.stringify(productArr))
+  let productArr = await fetch("http://192.168.0.107:3000/api/hello")
+  const product=productArr.json()
+  return {
+    props: {product}, 
+  }
+}
+*/
 
 export default navBar

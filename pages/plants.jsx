@@ -1,7 +1,10 @@
 import React from 'react'
 import Link from 'next/link'
+import Product from "@/models/Product"
+import mongoose from "mongoose";
 
-const plants = ({ proDetail }) => {
+const plants = ({  product }) => {
+  console.log(product)
   return (
     <div>
       <section className="text-gray-600 body-font">
@@ -19,17 +22,17 @@ const plants = ({ proDetail }) => {
         <section className="text-gray-600 body-font">
           <div className="container  px-5 py-14 mx-auto">
             <div className="flex flex-wrap -m-4">
-              {(Object.keys(proDetail)).slice(12).map((k) => {
-
+              {(Object.keys(product)).map((k) => {
+                  // if(product[k].categoty==="PLANT")
                 return <div className="lg:w-1/4 md:w-1/2 p-4 w-full" key={k}>
-                  <Link href={`/product/${k}`} className="block relative h-80 rounded overflow-hidden">
+                  <Link href={`/product/${product[k].slug}`} className="block relative h-80 rounded overflow-hidden">
                     <img alt="ecommerce" className="object-cover object-center w-full h-full block" src="https://dummyimage.com/420x260" />
                   </Link>
-                  <Link href={`/product/${k}`}>
+                  <Link href={`/product/${product[k].slug}`}>
                     <div className="mt-4">
-                      <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">{proDetail[k].catagy}</h3>
-                      <h2 className="text-gray-900 title-font text-lg font-medium">{proDetail[k].title}</h2>
-                      <p className="mt-1">₹{proDetail[k].price}</p>
+                      <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">{product[k].categoty}</h3>
+                      <h2 className="text-gray-900 title-font text-lg font-medium">{product[k].title}</h2>
+                      <p className="mt-1">₹{product[k].amount}</p>
                     </div>
                   </Link>
                 </div>
@@ -42,6 +45,17 @@ const plants = ({ proDetail }) => {
 
     </div>
   )
+}
+
+export async function getServerSideProps(context) {
+  if(!mongoose.connections[0].readyState){
+    mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true })
+  }
+  let productArr = await Product.find({categoty:"PLANT"})
+  const product=JSON.parse(JSON.stringify(productArr))
+  return {
+    props: {product}, 
+  }
 }
 
 export default plants

@@ -1,11 +1,21 @@
-import React, { useState } from 'react'
-import { useRouter } from 'next/router'
+import React, { useState,useEffect } from 'react'
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import Product from "@/models/Product"
+import mongoose from "mongoose";
 
-const slug = ({ proDetail, addTOcart }) => {
-  const test = 's2'
-  const router = useRouter();
+const slug = ({ product,path, addTOcart }) => {
+  // console.log(path.split("/")[2])
+  console.log("in pro",product ,"and ", path.slice(-2))
+  const [pro,setPro]=useState(product)
+  useEffect(() => {
+    console.log("loading")
+    setPro(product)
+  }, [product[0]])
+  
+  const router = useRouter()
   const { slug } = router.query
+  console.log("router.query",slug)
   const [pin, setpin] = useState()
   const onchnagePin = (e) => {
     setpin((e.target.value))
@@ -13,7 +23,7 @@ const slug = ({ proDetail, addTOcart }) => {
 
   const [avilable, setAvilable] = useState('/')
   const delAib = async () => {
-    var pinraw = await fetch('http://192.168.0.106:3000/api/pinCode');
+    var pinraw = await fetch('http://192.168.0.107:3000/api/pinCode');
     var pinarr = (await pinraw.json());
     if (pinarr.includes(parseInt(pin))) {
       setAvilable(true)
@@ -30,10 +40,10 @@ const slug = ({ proDetail, addTOcart }) => {
             <img alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="https://dummyimage.com/400x400" />
             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
               <h2 className="text-sm title-font text-gray-500 tracking-widest">
-                {slug === undefined ? "..." : (proDetail[slug].catagy)}
+                {product[0] === undefined ? "..." : (pro[0].categoty)}
               </h2>
               <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-                {slug === undefined ? "loading..." : (proDetail[slug].title)}
+                {product[0] === undefined ? "loading..." : (pro[0].title)}
               </h1>
               <div className="flex mb-4">
                 <span className="flex items-center">
@@ -82,7 +92,7 @@ const slug = ({ proDetail, addTOcart }) => {
                 </div>
               </div>
               <div className="flex">
-                <span className="title-font font-medium text-2xl text-gray-900">₹{slug === undefined ? "..." : (proDetail[slug].price)}</span>
+                <span className="title-font font-medium text-2xl text-gray-900">₹{pro[0] === undefined ? "..." : (product[0].amount)}</span>
                 <button className="flex ml-auto text-white bg-g-500 border-0 py-2 md:px px-2 m-1 focus:outline-none hover:bg-g-600 rounded" onClick={slug === undefined ? () => { } : (() => { addTOcart(slug, 1) })}>Add to Cart</button>
                 <Link href="/buyNow" className='flex ml-auto'>
                   <button className="text-white bg-g-500 border-0 py-2 px-6 m-1 focus:outline-none hover:bg-g-600 rounded" onClick={slug === undefined ? () => { } : (() => { addTOcart(slug, 1) })}>Buy now</button>
@@ -107,6 +117,20 @@ const slug = ({ proDetail, addTOcart }) => {
       </section>
     </div>
   )
+}
+
+export async function getServerSideProps(context) {
+  if(!mongoose.connections[0].readyState){
+    mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true })
+  }
+  let path=await context.req.url;
+  let setPath= await path.slice(-3)
+
+  let productArr = await Product.find({slug: setPath})
+  const product=JSON.parse(JSON.stringify(productArr))
+  return {
+    props: {product,path}, 
+  }
 }
 
 export default slug

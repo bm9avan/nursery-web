@@ -1,8 +1,16 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import Link from 'next/link'
 import { AiFillPlusCircle, AiFillMinusCircle } from 'react-icons/ai'
+import Product from "@/models/Product"
+import mongoose from "mongoose";
 
-const buyNow = ({ proDetail, cart, addTOcart }) => {
+const buyNow = ({ product, cart, addTOcart }) => {
+  useEffect(() => {
+
+  }, [cart])
+  
+  console.log("in cart ", product)
+  let proDetail = product
   let x = 0
 
   return (
@@ -11,13 +19,17 @@ const buyNow = ({ proDetail, cart, addTOcart }) => {
       <div className="h-1 w-20 bg-indigo-500 rounded mb-4"></div>
       <ol className='text-xl list-decimal'>
         {Object.keys(cart).map((c) => {
-          x += proDetail[c].price * cart[c].qty
+          console.log(c)
+          let pos = proDetail.findIndex(item => item.slug === c);
+          console.log("pos", pos)
+          // t = cartup[Id].qty * proDetail[pos].amount
+          x += proDetail[pos].amount * cart[c].qty
           console.log(x)
           return <div key={c}>
             <li className='m-2 justify-center'>
               <Link href={`/product/${c}`} className="hover:bg-g-200">
                 <div className='md:ml-16 float-left md:w-2/5 w-2/5 '>
-                  {proDetail[c].title}
+                  {proDetail[pos].title}
                 </div>
               </Link>
               <div className='float-right  flex'>
@@ -25,7 +37,7 @@ const buyNow = ({ proDetail, cart, addTOcart }) => {
                 <div>{cart[c].qty}</div>
                 <AiFillPlusCircle onClick={(() => { addTOcart(c, 1) })} className='mx-2 mt-1 cursor-pointer' />
               </div>
-              <div className=' m-auto '>Each ₹{proDetail[c].price}</div>
+              <div className=' m-auto '>Each ₹{proDetail[pos].amount}</div>
             </li>
           </div>
         })
@@ -37,6 +49,17 @@ const buyNow = ({ proDetail, cart, addTOcart }) => {
       </div>
     </div>
   )
+}
+
+export async function getServerSideProps(context) {
+  if (!mongoose.connections[0].readyState) {
+    mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true })
+  }
+  let productArr = await Product.find()
+  const product = JSON.parse(JSON.stringify(productArr))
+  return {
+    props: { product },
+  }
 }
 
 export default buyNow

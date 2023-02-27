@@ -2,35 +2,23 @@ import '@/styles/globals.css'
 import Nav from '../components/navBar'
 import Foot from '../components/footer'
 import React, { useState, useEffect } from 'react'
+import Product from "@/models/Product"
+import mongoose from "mongoose";
 
 export default function App({ Component, pageProps }) {
 
-  var proDetail = {
-    s1: { aviQty: 63, price: 59, catagy: "SEEDS", title: "Tomato Seeds" },
-    s2: { aviQty: 64, price: 59, catagy: "SEEDS", title: "Pepper Seeds" },
-    s3: { aviQty: 62, price: 59, catagy: "SEEDS", title: "Lettuce Seeds" },
-    s4: { aviQty: 61, price: 59, catagy: "SEEDS", title: "Carrot Seeds" },
-    s5: { aviQty: 62, price: 59, catagy: "SEEDS", title: "Radish Seeds" },
-    s6: { aviQty: 60, price: 59, catagy: "SEEDS", title: "Beet Seeds" },
-    s7: { aviQty: 61, price: 59, catagy: "SEEDS", title: "Cucumber Seeds" },
-    s8: { aviQty: 61, price: 59, catagy: "SEEDS", title: "Squash Seeds" },
-    s9: { aviQty: 60, price: 29, catagy: "SEEDS", title: "Zucchini Seeds" },
-    s10: { aviQty: 62, price: 159, catagy: "SEEDS", title: "EggPlant Seeds" },
-    s11: { aviQty: 60, price: 159, catagy: "SEEDS", title: "Broccoli Seeds" },
-    s12: { aviQty: 60, price: 19, catagy: "SEEDS", title: "Cauliflower Seeds" },
-    p1: { aviQty: 63, price: 659, catagy: "PLANT", title: "Fiddle Leaf Fig" },
-    p2: { aviQty: 64, price: 259, catagy: "PLANT", title: "Philodendron" },
-    p3: { aviQty: 62, price: 359, catagy: "PLANT", title: "Peace Lily" },
-    p4: { aviQty: 61, price: 459, catagy: "PLANT", title: "Pothos" },
-    p5: { aviQty: 62, price: 559, catagy: "PLANT", title: "Monstera" },
-    p6: { aviQty: 60, price: 659, catagy: "PLANT", title: "Aloe Vera" },
-    p7: { aviQty: 61, price: 759, catagy: "PLANT", title: "Bamboo Palm" },
-    p8: { aviQty: 61, price: 859, catagy: "PLANT", title: "Spider Plant" },
-    p9: { aviQty: 60, price: 959, catagy: "PLANT", title: "Golden Pothos" },
-    p10: { aviQty: 62, price: 1059, catagy: "PLANT", title: "Rubber Plant" },
-    p11: { aviQty: 60, price: 1159, catagy: "PLANT", title: "ZZ Plant" },
-    p12: { aviQty: 60, price: 1259, catagy: "PLANT", title: "Devil's Ivy" },
-  }
+  // var proDetail = [{
+  //   "_id": "63f4740bb043657a8190dc55",
+  //   "productId": "s01",
+  //   "title": "Tomato Seeds",
+  //   "slug": "s01",
+  //   "img": "later",
+  //   "categoty": "SEEDS",
+  //   "amount": 59,
+  //   "availableQty": 63,
+  //   "__v": 0
+  // }]
+  // console.log("proDetails", proDetail, product)
 
   let cartObj
   const [cart, setCart] = useState({})
@@ -39,7 +27,7 @@ export default function App({ Component, pageProps }) {
     if (typeof window !== 'undefined') {
       try {
         cartObj = JSON.parse(localStorage.getItem("data"))
-        console.log("new dis", cartObj)
+        // console.log("new dis", cartObj)
         if (cartObj == null) {
           localStorage.setItem("data", JSON.stringify({}))
         }
@@ -51,15 +39,18 @@ export default function App({ Component, pageProps }) {
     }
   }, [])
 
-  const [cartPrice, setCartPrice] = useState(0)
+  const [render, setRender] = useState(true)
 
   function saveCart(cartup) {
-    let t = cartPrice
+    // let t = cartPrice
     localStorage.setItem("data", JSON.stringify(cartup))
     Object.keys(cartup).forEach(Id => {
-      t = cartup[Id].qty * proDetail[Id].price
+      console.log("id",Id)
+      // let pos = proDetail.findIndex(item => item.slug === Id);
+      // console.log("pos",pos)
+      // t = cartup[Id].qty * proDetail[pos].amount
     });
-    setCartPrice(t)
+    setRender(!render)
   }
 
   function addTOcart(proId, qty) {
@@ -88,10 +79,10 @@ export default function App({ Component, pageProps }) {
   }
 
   return <>
-    <Nav proDetail={proDetail} cart={cart} addTOcart={addTOcart} clearCart={clearCart} removeFromCart={removeFromCart} cartPrice={cartPrice} />
+    <Nav  cart={cart} addTOcart={addTOcart} clearCart={clearCart} removeFromCart={removeFromCart} />
     <div className="min-h-screen grid grid-rows-1">
       <div className='m-5'>
-        <Component proDetail={proDetail} cart={cart} addTOcart={addTOcart} clearCart={clearCart} removeFromCart={removeFromCart} cartPrice={cartPrice} {...pageProps} />
+        <Component  cart={cart} addTOcart={addTOcart} clearCart={clearCart} removeFromCart={removeFromCart} {...pageProps} />
       </div>
       <div className='bg-g-200'>
         <Foot className=' absolute  top-0 w-full mt-5' />
@@ -99,3 +90,27 @@ export default function App({ Component, pageProps }) {
     </div>
   </>
 }
+
+// export async function getServerSideProps(context) {
+//   if (!mongoose.connections[0].readyState) {
+//     mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true })
+//   }
+//   let productArr = await Product.find({ categoty: "SEEDS" })
+//   const product = JSON.parse(JSON.stringify(productArr))
+//   return {
+//     props: { product },
+//   }
+// }
+
+// MyApp.getInitialProps = async (appContext) => {
+//   // Fetch data from Mongoose here
+//   const datain = await fetch("http://192.168.0.107:3000/api/hello");
+//   const data= await datain.json();
+//   // Get the component props
+//   const appProps = await MyApp.getInitialProps(appContext);
+  
+//   // Return the merged props
+//   return { ...appProps, data };
+// };
+
+// export default MyApp
