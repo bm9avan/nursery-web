@@ -53,7 +53,7 @@ const navBar = ({ cart, addTOcart, clearCart, removeFromCart }) => {
                 <ul className='text-sm text-center'>
                   {Object.keys(cart).map((c) => {
                     if (!data) {
-                      return <div>Loading...</div>;
+                      return <div key={c}>Loading...</div>;
                     }
 
                     let pos = data["productArr"].findIndex(item => item.slug === c);
