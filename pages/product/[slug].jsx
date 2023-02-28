@@ -1,15 +1,28 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Product from "@/models/Product"
 import mongoose from "mongoose";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const slug = ({ product, addTOcart }) => {
-  const [pro,setPro]=useState(product)
+  const [pro, setPro] = useState(product)
   useEffect(() => {
     setPro(product)
   }, [product[0]])
-  
+
+  const notify = () => toast.success('Success! Product added to cart ', {
+    position: "top-right",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  });
+
   const router = useRouter()
   const { slug } = router.query
   const [pin, setpin] = useState()
@@ -87,9 +100,21 @@ const slug = ({ product, addTOcart }) => {
                   </div>
                 </div>
               </div>
+              <ToastContainer
+                position="top-right"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+              />
               <div className="flex">
                 <span className="title-font font-medium text-2xl text-gray-900">₹{pro[0] === undefined ? "..." : (product[0].amount)}</span>
-                <button className="flex ml-auto text-white bg-g-500 border-0 py-2 md:px px-2 m-1 focus:outline-none hover:bg-g-600 rounded" onClick={slug === undefined ? () => { } : (() => { addTOcart(slug, 1) })}>Add to Cart</button>
+                <button className="flex ml-auto text-white bg-g-500 border-0 py-2 md:px px-2 m-1 focus:outline-none hover:bg-g-600 rounded" onClick={slug === undefined ? () => { } : (() => {notify(); addTOcart(slug, 1) })}>Add to Cart</button>
                 <Link href="/buyNow" className='flex ml-auto'>
                   <button className="text-white bg-g-500 border-0 py-2 px-6 m-1 focus:outline-none hover:bg-g-600 rounded" onClick={slug === undefined ? () => { } : (() => { addTOcart(slug, 1) })}>Buy now</button>
                 </Link>
@@ -116,16 +141,16 @@ const slug = ({ product, addTOcart }) => {
 }
 
 export async function getServerSideProps(context) {
-  if(!mongoose.connections[0].readyState){
+  if (!mongoose.connections[0].readyState) {
     mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true })
   }
-  let path=await context.req.url;
-  let setPath= await path.slice(-3)
+  let path = await context.req.url;
+  let setPath = await path.slice(-3)
 
-  let productArr = await Product.find({slug: setPath})
-  const product=JSON.parse(JSON.stringify(productArr))
+  let productArr = await Product.find({ slug: setPath })
+  const product = JSON.parse(JSON.stringify(productArr))
   return {
-    props: {product}
+    props: { product }
   }
 }
 
