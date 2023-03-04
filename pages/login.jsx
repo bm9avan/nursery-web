@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const login = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    let router= useRouter()
+    let router = useRouter()
     function handlerChange(e) {
         if (e.target.name == "email") {
             setEmail(e.target.value)
@@ -20,40 +20,26 @@ const login = () => {
         }
     }
     const handleSubmit = async (event) => {
-        // Stop the form from submitting and refreshing the page.
         event.preventDefault()
-
-        // Get data from the form.
         const data = {
             email: email,
             password: password
         }
 
-        // Send the data to the server in JSON format.
         const JSONdata = JSON.stringify(data)
-
-        // API endpoint where we send form data.
         const endpoint = '/api/login'
 
-        // Form the request for sending data to the server.
         const options = {
-            // The method is POST because we are sending data.
             method: 'POST',
-            // Tell the server we're sending JSON.
             headers: {
                 'Content-Type': 'application/json',
             },
-            // Body of the request is the JSON data we created above.
             body: JSONdata,
         }
 
-        // Send the form data to our forms API on Vercel and get a response.
         const response = await fetch(endpoint, options)
 
-        // Get the response data from server as JSON.
-        // If server returns the name submitted, that means the form works.
         const result = await response.json()
-        console.log(result)
         if (result.success) {
             toast.success(result.success, {
                 position: "top-center",

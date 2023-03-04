@@ -6,7 +6,7 @@ async function handler(req, res) {
         try {
             const u = new User(req.body)
             await u.save();
-            res.status(200).json({ success: "user added" })
+            res.status(200).json({ success: "Account created successfully!" })
         }
         catch {
             (e) => console.log("in catch ", e)
