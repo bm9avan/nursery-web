@@ -15,7 +15,7 @@ const navBar = ({ cart, addTOcart, clearCart, removeFromCart }) => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch('http://192.168.0.107:3000/api/getProduct')
+    fetch('http://192.168.0.104:3000/api/getProduct')
       .then(response => response.json())
       .then(data => { setData(data) })
       .catch(error => console.error(error));
@@ -51,7 +51,7 @@ const navBar = ({ cart, addTOcart, clearCart, removeFromCart }) => {
               <div className='text-2xl'><h1 className=' font-bold text-center'>plants&seeds</h1>
                 {/* <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi aliquam aliquid ipsa itaque alias labore fugit, in, optio at ipsum architecto quae cupiditate rem, animi quo esse! Aspernatur illum pariatur cupiditate laborum iusto? Nobis, hic in! Quae odio quia ab tempore! In nisi a, quasi error excepturi vel fuga laborum rem, ipsam, explicabo ad qui maxime recusandae. Praesentium quibusdam non, modi tempore eius, perferendis voluptates tempora consequuntur, est dignissimos ipsam atque soluta laudantium neque fugit! Aliquid, qui in error doloremque sunt iusto excepturi eveniet a dolore maxime eos eaque atque, tempore asperiores ipsam, mollitia ratione doloribus distinctio aut recusandae.</div> */}
                 <ul className='text-sm text-center'>
-                  {Object.keys(cart).map((c) => {
+                  {cart && Object.keys(cart).map((c) => {
                     if (!data) {
                       return <div key={c}>Loading...</div>;
                     }
@@ -74,13 +74,13 @@ const navBar = ({ cart, addTOcart, clearCart, removeFromCart }) => {
                   })
                   }
                 </ul>
-                {Object.keys(cart) != 0 && <div className='text-xl flex flex-row justify-between m-7'>
+                {cart && Object.keys(cart) != 0 && <div className='text-xl flex flex-row justify-between m-7'>
                   <button className='group relative flex justify-center rounded-md border border-transparent bg-g-600 py-2 px-4 text-sm font-medium text-white hover:bg-g-700 focus:outline-none focus:ring-2 focus:ring-g-500 focus:ring-offset-2' onClick={() => { clearCart(); setCartfun(!cartfun) }}>Clear Cart</button>
                   <Link href="/buyNow">
                     <button className='group relative flex justify-center rounded-md border border-transparent bg-g-600 py-2 px-4 text-sm font-medium text-white hover:bg-g-700 focus:outline-none focus:ring-2 focus:ring-g-500 focus:ring-offset-2' onClick={() => setCartfun(!cartfun)} >Buy now</button>
                   </Link>
                 </div>}
-                {Object.keys(cart).length === 0 && <div className='flex justify-center mt-3 text-xl'>
+                {cart && Object.keys(cart).length === 0 && <div className='flex justify-center mt-3 text-xl'>
                   {'Your cart is empty :('}
                 </div>}
               </div>
