@@ -2,21 +2,23 @@ import '@/styles/globals.css'
 import Nav from '../components/navBar'
 import Foot from '../components/footer'
 import React, { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 
 export default function App({ Component, pageProps }) {
 
   let cartObj
   const [cart, setCart] = useState({})
-  const [user, setUser] = useState({val: null})
-  const [key, setKey] = useState({val: null})
-
+  const [user, setUser] = useState({ val: null })
+  const [key, setKey] = useState({ val: null })
+  let router = useRouter()
   useEffect(() => {
-    let token = localStorage.getItem("token")
-    if(token){
-        token && setUser({val: token})
-        console.log(token, user)
+    let token = JSON.parse(localStorage.getItem("token"))
+    if (token) {
+      token.val && setUser({ val: token.val })
       setKey(Math.random())
     }
+  }, [router.query])
+  useEffect(() => {
     if (typeof window !== 'undefined') {
       try {
         cartObj = JSON.parse(localStorage.getItem("data"))
@@ -38,9 +40,8 @@ export default function App({ Component, pageProps }) {
     setRender(!render)
   }
 
-  function logout(){
-    setUser({val: null})
-    // if i print user in myaccont, when token is null then null whould be set as string so even when token is not there i was geting logout button, if i wanted to avoid this i used localStorage.clear("token") this was clearing all thing in localStorage
+  function logout() {
+    setUser({ val: null })
     localStorage.setItem("token", null)
   }
 

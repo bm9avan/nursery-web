@@ -2,7 +2,10 @@ import Link from 'next/link'
 import React,{useEffect} from 'react'
 
 const myaccont = ({user,logout}) => {
-  console.log(user)
+  useEffect(() => {
+    
+  }, [user])
+  
   return (
     <>
       { !user.val && <div className=' text-center items-center mb-10'>

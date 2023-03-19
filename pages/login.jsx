@@ -54,7 +54,7 @@ const login = () => {
                 theme: "light",
             })
             setTimeout(() => {
-                router.push("http://192.168.0.107:3000/")
+                router.push("http://192.168.0.105:3000/")
             }, 2000);
         } else {
             toast.error(result.error, {
