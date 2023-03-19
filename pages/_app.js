@@ -3,6 +3,7 @@ import Nav from '../components/navBar'
 import Foot from '../components/footer'
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import LoadingBar from 'react-top-loading-bar'
 
 export default function App({ Component, pageProps }) {
 
@@ -10,14 +11,23 @@ export default function App({ Component, pageProps }) {
   const [cart, setCart] = useState({})
   const [user, setUser] = useState({ val: null })
   const [key, setKey] = useState({ val: null })
+  const [progress, setProgress] = useState(0)
+
   let router = useRouter()
   useEffect(() => {
+    router.events.on('routeChangeStart', ()=>{
+      setProgress(40)
+    })
+    router.events.on('routeChangeComplete', ()=>{
+      setProgress(100)
+    })
     let token = JSON.parse(localStorage.getItem("token"))
     if (token) {
       token.val && setUser({ val: token.val })
       setKey(Math.random())
     }
   }, [router.query])
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       try {
@@ -71,6 +81,12 @@ export default function App({ Component, pageProps }) {
   }
 
   return <>
+    <LoadingBar
+      color='#00e64d'
+      progress={progress}
+      waitingTime={400} 
+      onLoaderFinished={() => setProgress(0)}
+    />
     <Nav key={key} user={user} cart={cart} addTOcart={addTOcart} clearCart={clearCart} removeFromCart={removeFromCart} />
     <div className="min-h-screen grid grid-rows-1">
       <div className='m-5'>

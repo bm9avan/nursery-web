@@ -1,9 +1,18 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import icon from '../public/favicon.png'
+import { useRouter } from 'next/router'
 
-const forgot = () => {
+const forgot = ({user}) => {
+    let router = useRouter()
+
+    useEffect(() => {
+        if (user.val) {
+            router.push('/')
+        }
+    }, [])
+
     return (
         <div>
             <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">

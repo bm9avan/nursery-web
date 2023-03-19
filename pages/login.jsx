@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { LockClosedIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -7,10 +7,17 @@ import { useRouter } from 'next/router'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const login = () => {
+const login = ({ user }) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     let router = useRouter()
+
+    useEffect(() => {
+        if (user.val) {
+            router.push('/')
+        }
+    }, [])
+
     function handlerChange(e) {
         if (e.target.name == "email") {
             setEmail(e.target.value)
@@ -41,8 +48,8 @@ const login = () => {
 
         const result = await response.json()
         if (result.success) {
-            let val= result.token
-            localStorage.setItem("token", JSON.stringify({val}))
+            let val = result.token
+            localStorage.setItem("token", JSON.stringify({ val }))
             toast.success(result.success, {
                 position: "top-center",
                 autoClose: 2000,
@@ -54,12 +61,12 @@ const login = () => {
                 theme: "light",
             })
             setTimeout(() => {
-                router.push("http://192.168.0.105:3000/")
-            }, 2000);
+                router.push("/")
+            }, 1250);
         } else {
             toast.error(result.error, {
                 position: "top-center",
-                autoClose: 2000,
+                autoClose: 1000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,

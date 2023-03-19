@@ -1,15 +1,23 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { LockClosedIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link'
 import Image from 'next/image'
 import icon from '../public/favicon.png'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useRouter } from 'next/router'
 
-const signup = () => {
+const signup = ({user}) => {
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    let router = useRouter()
+
+    useEffect(() => {
+        if (user.val) {
+            router.push('/')
+        }
+    }, [])
 
     function handlerChange(e) {
         if (e.target.name == "name") {
