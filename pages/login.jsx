@@ -41,6 +41,8 @@ const login = () => {
 
         const result = await response.json()
         if (result.success) {
+            let val= result.token
+            localStorage.setItem("token", JSON.stringify({val}))
             toast.success(result.success, {
                 position: "top-center",
                 autoClose: 2000,

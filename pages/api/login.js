@@ -1,6 +1,7 @@
 import User from "@/models/User"
 import connecyDb from "../../middleware/mongoose"
 var CryptoJS = require("crypto-js");
+var jwt = require('jsonwebtoken');
 
 async function handler(req, res) {
     if (req.method == 'POST') {
@@ -10,7 +11,8 @@ async function handler(req, res) {
             var passwordDecrypt = bytes.toString(CryptoJS.enc.Utf8);
             if (u) {
                 if (passwordDecrypt === req.body.password) {
-                    res.status(200).json({ success: "Login successfully! " + u.userId })
+                    var token = jwt.sign({ userId: u.userId , email: u.email }, 'shhhhh',{expiresIn: "6d"});
+                    res.status(200).json({ success: "Login successfully! " + u.userId , token})
                 } else {
                     res.status(200).json({ error: "Invalied Password" })
                 }

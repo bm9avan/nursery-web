@@ -7,8 +7,16 @@ export default function App({ Component, pageProps }) {
 
   let cartObj
   const [cart, setCart] = useState({})
+  const [user, setUser] = useState({val: null})
+  const [key, setKey] = useState({val: null})
 
   useEffect(() => {
+    let token = localStorage.getItem("token")
+    if(token){
+        token && setUser({val: token})
+        console.log(token, user)
+      setKey(Math.random())
+    }
     if (typeof window !== 'undefined') {
       try {
         cartObj = JSON.parse(localStorage.getItem("data"))
@@ -28,6 +36,12 @@ export default function App({ Component, pageProps }) {
   function saveCart(cartup) {
     localStorage.setItem("data", JSON.stringify(cartup))
     setRender(!render)
+  }
+
+  function logout(){
+    setUser({val: null})
+    // if i print user in myaccont, when token is null then null whould be set as string so even when token is not there i was geting logout button, if i wanted to avoid this i used localStorage.clear("token") this was clearing all thing in localStorage
+    localStorage.setItem("token", null)
   }
 
   function addTOcart(proId, qty) {
@@ -56,10 +70,10 @@ export default function App({ Component, pageProps }) {
   }
 
   return <>
-    <Nav cart={cart} addTOcart={addTOcart} clearCart={clearCart} removeFromCart={removeFromCart} />
+    <Nav key={key} user={user} cart={cart} addTOcart={addTOcart} clearCart={clearCart} removeFromCart={removeFromCart} />
     <div className="min-h-screen grid grid-rows-1">
       <div className='m-5'>
-        <Component cart={cart} addTOcart={addTOcart} clearCart={clearCart} removeFromCart={removeFromCart} {...pageProps} />
+        <Component key={key} user={user} logout={logout} cart={cart} addTOcart={addTOcart} clearCart={clearCart} removeFromCart={removeFromCart} {...pageProps} />
       </div>
       <div className='bg-g-200'>
         <Foot className=' absolute  top-0 w-full mt-5' />
