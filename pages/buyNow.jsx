@@ -17,7 +17,7 @@ const buyNow = ({ product, cart, addTOcart }) => {
       <h1 className="sm:text-3xl text-2xl font-medium title-font mb-2 text-g-900 ">Place Your Order</h1>
       <div className="h-1 w-20 bg-indigo-500 rounded mb-4"></div>
       <ol className='text-xl list-decimal'>
-        {Object.keys(cart).map((c) => {
+        {Object.keys(cart)?.map((c) => {
           let pos = proDetail.findIndex(item => item.slug === c);
           x += proDetail[pos].amount * cart[c].qty
           return <div key={c}>
