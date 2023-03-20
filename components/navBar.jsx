@@ -15,7 +15,7 @@ const navBar = ({ cart, addTOcart, clearCart, removeFromCart }) => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch('http://192.168.0.104:3000/api/getProduct')
+    fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getProduct`)
       .then(response => response.json())
       .then(data => { setData(data) })
       .catch(error => console.error(error));

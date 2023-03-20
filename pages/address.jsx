@@ -10,7 +10,7 @@ function address() {
 
 
     const delAib = async () => {
-        var pinraw = await fetch('http://192.168.0.107:3000/api/pinCode');
+        var pinraw = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/pinCode`);
         var pinarr = (await pinraw.json());
         if (pinarr.includes(parseInt(pin))) {
             setAvilable(true)
