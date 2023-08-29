@@ -32,7 +32,7 @@ const slug = ({ product, cart, addTOcart }) => {
 
   const [avilable, setAvilable] = useState('/')
   const delAib = async () => {
-    var pinraw = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/pinCode`);
+    var pinraw = await fetch(`/api/pinCode`);
     var pinarr = (await pinraw.json());
     if (pinarr.includes(parseInt(pin))) {
       setAvilable(true)

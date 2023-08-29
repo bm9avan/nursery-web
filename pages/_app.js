@@ -34,6 +34,7 @@ export default function App({ Component, pageProps }) {
         cartObj = JSON.parse(localStorage.getItem("data"))
         if (cartObj == null) {
           localStorage.setItem("data", JSON.stringify({}))
+          cartObj = JSON.parse(localStorage.getItem("data"))
         }
         setCart(cartObj)
       } catch (error) {

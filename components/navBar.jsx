@@ -15,7 +15,7 @@ const navBar = ({ cart, addTOcart, clearCart, removeFromCart }) => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getProduct`)
+    fetch(`/api/getProduct`)
       .then(response => response.json())
       .then(data => { setData(data) })
       .catch(error => console.error(error));
@@ -103,7 +103,7 @@ const navBar = ({ cart, addTOcart, clearCart, removeFromCart }) => {
             {pop &&
               pageL.map((page) => {
                 return <div key={page}>
-                  <Link href={`/${page.toLowerCase()}`} className='' key={`/${page.toLowerCase()}`}><button onClick={() => { setActive(page) }} key={page.toLowerCase()} className={`w-full p-2 hover:bg-g-50 rounded-md text-xl hover:opacity-50 text-g-900 ${active === page ? 'text-red-900 font-bold' : ''} ${active === page ? 'text-red-900 font-bold' : ''}`}>
+                  <Link href={`/${page.toLowerCase()}`} key={`/${page.toLowerCase()}`}><button onClick={() => { setActive(page) }} key={page.toLowerCase()} className={`w-full p-2 hover:bg-g-50 rounded-md text-xl hover:opacity-50 text-g-900 ${active === page ? 'text-red-900 font-bold' : ''} ${active === page ? 'text-red-900 font-bold' : ''}`}>
                     {page}
                   </button></Link>
                 </div>

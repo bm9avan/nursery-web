@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import Link from 'next/link'
-import { AiFillPlusCircle, AiFillMinusCircle } from 'react-icons/ai'
+import { AiFillPlusCircle, AiFillMinusCircle, AiOutlineClose } from 'react-icons/ai'
 import Product from "@/models/Product"
 import mongoose from "mongoose";
 
-const buyNow = ({ product, cart, addTOcart }) => {
+const buyNow = ({ product, cart, addTOcart, removeFromCart }) => {
   useEffect(() => {
 
   }, [cart])
@@ -31,6 +31,7 @@ const buyNow = ({ product, cart, addTOcart }) => {
                 <AiFillMinusCircle onClick={cart[c].qty > 1 ? (() => { addTOcart(c, -1) }) : (() => { addTOcart(c, 0) })} className='mx-2 mt-1 cursor-pointer' />
                 <div>{cart[c].qty}</div>
                 <AiFillPlusCircle onClick={(() => { addTOcart(c, 1) })} className='mx-2 mt-1 cursor-pointer' />
+                <AiOutlineClose onClick={() => { removeFromCart(c) }} className='mx-2 mt-1 cursor-pointer' />
               </div>
               <div className=' m-auto '>Each ₹{proDetail[pos].amount}</div>
             </li>
@@ -40,7 +41,9 @@ const buyNow = ({ product, cart, addTOcart }) => {
       </ol>
       <div className='text-2xl font-bold flex pt-4'>Total Amount : {x}</div>
       <div className='text-center pt-8'>
-        <Link href='/address'><button className="group relative  md:w-1/5 justify-center rounded-md border border-transparent bg-g-600 py-2 px-4 text-sm font-medium text-white hover:bg-g-700 focus:outline-none focus:ring-2 focus:ring-g-500 focus:ring-offset-2 mr-8">PLACE ORDER</button></Link>
+        <Link href='/address'><button className="group relative  md:w-1/5 justify-center rounded-md border border-transparent bg-g-600 py-2 px-4 text-sm font-medium text-white hover:bg-g-700 focus:outline-none focus:ring-2 focus:ring-g-500 focus:ring-offset-2 mr-8">ADDRESS</button></Link>
+        {(x===0) && <Link href='/'><button className="group relative  md:w-1/5 justify-center rounded-md border border-transparent bg-g-600 py-2 px-4 text-sm font-medium text-white hover:bg-g-700 focus:outline-none focus:ring-2 focus:ring-g-500 focus:ring-offset-2 mr-8">SHOP NOW</button></Link>}
+        {!(x===0) && <button className="group relative  md:w-1/5 justify-center rounded-md border border-transparent bg-g-600 py-2 px-4 text-sm font-medium text-white hover:bg-g-700 focus:outline-none focus:ring-2 focus:ring-g-500 focus:ring-offset-2 mr-8">PLACE ORDER</button>}
       </div>
     </div>
   )
